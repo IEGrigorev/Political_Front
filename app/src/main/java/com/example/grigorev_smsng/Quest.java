@@ -13,6 +13,10 @@ public class Quest {
     private int cost=50;
     private int random_num =1;
 
+
+
+
+
     private final Question[] questions = new Question[]{
             new Question(
                     "Поздравляем с победой на выборах! Ваши первые действия?",
@@ -30,7 +34,7 @@ public class Quest {
                                     0, 0, 15, 0, 0),
                             new Question.Answer("Выделить деньги только на постройку жил.массивов", 1, getRandomNum(), -2, 0, -15,
                                     0, 0, 15, 0, 0),
-                            new Question.Answer("Позже решим этот вопрос", 1, getRandomNum(), -5, 0, 25,
+                            new Question.Answer("Позже решим этот вопрос", 1, getRandomNum(), -5, 0, 0,
                                     0, 0, 0, 0, 0),
                     }
             ),
@@ -42,7 +46,7 @@ public class Quest {
                                     0, 0, 0, 0, 0),
                             new Question.Answer("Заняться отловом собак, обеспечить им необходимю мед помощь", 1, getRandomNum(), 2, 0, 0,
                                     0, 0, 0, 0, 2),
-                            new Question.Answer("Позже решим этот вопрос", 1, getRandomNum(), -5, 0, 25,
+                            new Question.Answer("Позже решим этот вопрос", 1, getRandomNum(), -5, 0, 0,
                                     0, 0, 0, 0, 0),
                     }
             ),
@@ -62,7 +66,7 @@ public class Quest {
                     new Question.Answer[]{
                             new Question.Answer("Ввести гос.цензуру", 1, getRandomNum(), -10, 5, -5,
                                     -20, 0, 0, 0, 0),
-                            new Question.Answer("Не стоит об этом волноваться", 1, getRandomNum(), 0, 0, 25,
+                            new Question.Answer("Не стоит об этом волноваться", 1, getRandomNum(), 0, 0, 0,
                                     0, 0, 0, 0, 0),
                     }
             ),
@@ -194,7 +198,7 @@ public class Quest {
                     new Question.Answer[]{
                             new Question.Answer("Да", 1, getRandomNum(), -3, 10, 0,
                                     0, -5, 0, 10, 3),
-                            new Question.Answer("Нет", 1, getRandomNum(), 0, 0, 10,
+                            new Question.Answer("Нет", 1, getRandomNum(), 0, 0, 0,
                                     5, 0, 0, 0, 0),
 
                     }
@@ -202,6 +206,7 @@ public class Quest {
 
 
     };
+
 
    public int getRandomNum(){
     random_num=1+(int) (Math.random()*17);

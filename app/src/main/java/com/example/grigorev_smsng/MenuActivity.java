@@ -11,6 +11,8 @@ public class MenuActivity extends AppCompatActivity {
     private ActivityMenuBinding binding;
     private PrefsManager prefsManager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,10 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         loadBestResult();
         binding.play.setOnClickListener(v -> {
+            startActivity(GameActivity.newInstance(this));
+        });
+        binding.loadGame.setOnClickListener(v -> {
+            prefsManager.setDetector(1);
             startActivity(GameActivity.newInstance(this));
         });
     }

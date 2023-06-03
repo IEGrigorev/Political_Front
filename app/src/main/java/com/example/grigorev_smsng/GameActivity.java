@@ -2,6 +2,7 @@ package com.example.grigorev_smsng;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,24 @@ public class GameActivity extends AppCompatActivity {
 
     private void initQuestion(int stepNumber, int authorityNation, int authorityParty, int treasure,
                               int massMediaFreedom, int authorityArmy, int infrastructure, int yourSafety, int cost) {
+
+        if(prefsManager.getDetector()==1){
+            quest.addAuthorityNation(-(quest.getAuthorityNation())+prefsManager.getAuthNation());
+            quest.addAuthorityParty(-(quest.getAuthorityParty())+prefsManager.getAuthParty());
+            quest.addAuthorityArmy(-(quest.getAuthorityArmy())+prefsManager.getAuthArmy());
+            quest.addTreasure(-(quest.getTreasure())+prefsManager.getTreasure()+quest.getCost());
+            quest.addInfrastructure(-(quest.getInfrastructure())+prefsManager.getInfra());
+            quest.addYourSafety(-(quest.getYourSafety())+prefsManager.getYourSave());
+            quest.addMassMediaFreedom(-(quest.getMassMediaFreedom())+prefsManager.getMassMediaF());
+            quest.addCost(-(quest.getCost())+prefsManager.getCost());
+            stepNumber=prefsManager.getNumbQuest();
+            quest.addScore(prefsManager.getMonth());
+        }
+        prefsManager.setDetector(0);
+        prefsManager.setALL(quest.getAuthorityNation(),quest.getAuthorityParty(),quest.getAuthorityArmy(),quest.getTreasure(),
+                quest.getInfrastructure(),quest.getYourSafety(),quest.getMassMediaFreedom(),quest.getCost(),stepNumber, quest.getScore());
+
+
         binding.score.setText("Месяц: " + quest.getScore());
         binding.TauthorityNation.setText("Народное доверие: " + quest.getAuthorityNation()+"%");
         binding.TauthorityParty.setText("Авторитет в партии: " + quest.getAuthorityParty()+"%");
@@ -54,6 +73,7 @@ public class GameActivity extends AppCompatActivity {
                 setQuestionState(stepNumber);
                 break;
         }
+
         if (quest.getAuthorityNation()<5) setNationRevoltEndState();
         if(quest.getAuthorityNation()<10 && quest.getYourSafety()<10) setNationRevoltEndState();
         if(quest.getTreasure()<1) setEconomicEndState();
@@ -61,10 +81,19 @@ public class GameActivity extends AppCompatActivity {
         if(quest.getAuthorityParty()<40 && quest.getYourSafety()<10 ) setPartyRevoltEndState();
         if(quest.getAuthorityNation()<5 && quest.getAuthorityArmy()>50) setCivilWarEndState();
         if(quest.getInfrastructure()<20) setNationRevoltEndState();
+
+
+
+
     }
 
 
+    private void setNewGame(){
+        prefsManager.setALL(90,100,100,800,50,100,100,50,0,0);
+    }
+
     private void setQuestionState(int stepNumber) {
+
         Quest.Question question = quest.getQuestion(stepNumber);
         binding.description.setText(question.getDescription());
         fillButtons(question.getAnswers());
@@ -83,28 +112,33 @@ public class GameActivity extends AppCompatActivity {
         binding.description.setText("Разочарованные граждане решили, что им не нужен такой президент как вы. Ваша охрана не смогла защитить вас от народного гнева.");
         fillCloseButton();
         writeBestScore();
+        setNewGame();
     }
 
     private void setEconomicEndState() {
         binding.description.setText("Деньги в казне закончились. Страна оказалась в состоянии кризиса");
         fillCloseButton();
         writeBestScore();
+        setNewGame();
     }
 
     private void setArmyRevoltEndState() {
         binding.description.setText("Вы и ваша партия достаточно надоели народу. Армия отказалась защищать правительство и вы были свергнуты.");
         fillCloseButton();
         writeBestScore();
+        setNewGame();
     }
     private void setPartyRevoltEndState() {
         binding.description.setText("Вы часто игнорировали интересы партии, что сильно не понравилось ее членам. На вас было совершено покушение.");
         fillCloseButton();
         writeBestScore();
+        setNewGame();
     }
     private void setCivilWarEndState() {
         binding.description.setText("Народ, недовольный вашими действиями, начал вооруженное восстание, но армия встала на вашу защиту. Все это привело к войне.");
         fillCloseButton();
         writeBestScore();
+        setNewGame();
     }
 
 
